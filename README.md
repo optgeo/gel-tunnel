@@ -14,7 +14,8 @@ This project provides a solution for serving large map tile files (`gel.pmtiles`
 - Install `curl` for downloading files.
 
 ### Makefile Tasks
-- `make download`: Downloads `gel.pmtiles` to the `data` folder.
+- `make download`: Downloads `gel.pmtiles` to the `data` folder, with support for resuming interrupted downloads.
+- `make verify`: Verifies the integrity of `gel.pmtiles` using `go-pmtiles`.
 - `make clean`: Removes the downloaded `gel.pmtiles` file.
 
 ### Future Plans
@@ -27,4 +28,4 @@ This project provides a solution for serving large map tile files (`gel.pmtiles`
 - `Makefile`: Automates download and cleanup tasks.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the CC0 1.0 Universal (Public Domain Dedication).

@@ -3,8 +3,11 @@
 ## gel.pmtiles
 `gel.pmtiles` is a large map tile file (182 GB) provided by Source Cooperative. It is used for rendering maps efficiently.
 
+### Verification
+The `verify` task in the Makefile uses `go-pmtiles` to check the integrity of `gel.pmtiles`. This ensures the file is complete and valid for serving.
+
 ### Downloading
-The file is downloaded using `curl` with automatic retry enabled. The Makefile automates this process.
+The `download` task supports resuming interrupted downloads using the `-C -` option in `curl`. The Makefile automates this process.
 
 ### Storage
 The file is stored in the `data/` folder. A `.gitkeep` file ensures the folder is tracked in version control.
