@@ -33,5 +33,11 @@ clean:
 .PHONY: host
 host:
 	@echo "Hosting gel.pmtiles with Martin..."
-	martin serve $(OUTPUT) --format webp
+	martin $(OUTPUT)
 	@echo "Hosting complete."
+
+# Task to run Martin through Cloudflare Tunnel
+.PHONY: tunnel
+tunnel:
+	@echo "Running Cloudflare Tunnel with Martin..."
+	cloudflared tunnel run --url http://localhost:8080

@@ -26,3 +26,8 @@
 
 - gel.pmtiles は非常に大きいため、ダウンロード時はディスク容量・ネットワーク帯域に注意。
 - 取得後のサーバ提供・Cloudflare Tunnel 構成は今後検討。
+
+## Updated Instructions
+- Ensure sensitive keys are not stored in the repository.
+- Use environment variables for credentials.
+- Document all major changes and findings in appropriate markdown files.

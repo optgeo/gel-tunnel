@@ -23,6 +23,25 @@ Cloudflare Tunnel will be used to serve `gel.pmtiles` from a Raspberry Pi. This 
 2. Configure the tunnel to point to the local server hosting `gel.pmtiles`.
 3. Test the setup to ensure accessibility.
 
+### Installing Rustup and Martin
+
+#### Rustup Installation
+1. Run the following command to install Rustup:
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
+2. Restart your shell or run:
+   ```bash
+   source $HOME/.cargo/env
+   ```
+
+#### Martin Installation
+1. Ensure Rust and Cargo are installed.
+2. Install Martin using Cargo:
+   ```bash
+   cargo install martin
+   ```
+
 ## Notes
 - Ensure the Raspberry Pi has sufficient resources for hosting the file.
 - Monitor network bandwidth during file download and serving.
