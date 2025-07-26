@@ -44,6 +44,22 @@ cloudflared tunnel route dns gel-tunnel tunnel.optgeo.org
 - `make verify`: Verifies the integrity of `gel.pmtiles` using `go-pmtiles`.
 - `make clean`: Removes the downloaded `gel.pmtiles` file.
 
+## Updated Makefile Tasks
+
+The Makefile now includes tasks for managing both `gel.pmtiles` and `optimal_bvmap-v1.pmtiles`. Below are the updated tasks:
+
+### Managing gel.pmtiles
+- **Download**: `make download`
+- **Verify**: `make verify`
+- **Clean**: `make clean`
+
+### Managing optimal_bvmap-v1.pmtiles
+- **Download**: `make download-optimal`
+- **Verify**: `make verify-optimal`
+- **Clean**: `make clean-optimal`
+
+These tasks allow for easy management of both PMTiles files.
+
 ### Future Plans
 - Set up Cloudflare Tunnel on Raspberry Pi OS.
 - Serve `gel.pmtiles` locally.
@@ -81,3 +97,85 @@ cloudflared tunnel run --url http://localhost:3000
 ```
 
 This will create a secure tunnel to your local server.
+
+### Setting Up Cloudflare Tunnel
+
+To set up a Cloudflare Tunnel for exposing the local Martin server:
+
+1. Authenticate with Cloudflare:
+   ```bash
+   cloudflared tunnel login
+   ```
+   This will open a browser window for authentication.
+
+2. Create the Tunnel:
+   ```bash
+   cloudflared tunnel create gel-tunnel
+   ```
+
+3. Route DNS to the Tunnel:
+   ```bash
+   cloudflared tunnel route dns gel-tunnel tunnel.optgeo.org
+   ```
+
+4. Run the Tunnel:
+   ```bash
+   cloudflared tunnel run gel-tunnel
+   ```
+
+Once the tunnel is running, it will securely expose your local Martin server to the internet.
+
+### Recreating the Tunnel and Configuring Ingress Rules
+
+If the credentials file is missing, recreate the tunnel and configure ingress rules:
+
+1. Recreate the Tunnel:
+   ```bash
+   cloudflared tunnel create gel-tunnel
+   ```
+   This will generate the credentials file at `~/.cloudflared/gel-tunnel.json`.
+
+2. Verify the Credentials File:
+   ```bash
+   ls ~/.cloudflared/gel-tunnel.json
+   ```
+
+3. Create a Configuration File:
+   Save the following content as `~/.cloudflared/config.yml`:
+   ```yaml
+   tunnel: gel-tunnel
+   credentials-file: ~/.cloudflared/gel-tunnel.json
+   ingress:
+     - hostname: tunnel.optgeo.org
+       service: http://localhost:8080
+     - service: http_status:404
+   ```
+
+4. Run the Tunnel:
+   ```bash
+   cloudflared tunnel run gel-tunnel
+   ```
+
+This setup ensures proper routing of incoming requests to your local Martin server.
+
+## Managing optimal_bvmap-v1.pmtiles
+
+### Download
+To download `optimal_bvmap-v1.pmtiles`, run:
+```bash
+make download-optimal
+```
+
+### Verify
+To verify the integrity of `optimal_bvmap-v1.pmtiles`, run:
+```bash
+make verify-optimal
+```
+
+### Clean
+To remove `optimal_bvmap-v1.pmtiles`, run:
+```bash
+make clean-optimal
+```
+
+These tasks are included in the Makefile for easy management of the file.
